@@ -1,12 +1,12 @@
 class Solution {
-    public int longestCommonSubsequence(String text1, String text2) {
-        int [][]dp=new int[text1.length()][text2.length()];
+    public int longestCommonSubsequence(String s1, String s2) {
+        int [][]dp=new int[s1.length()][s2.length()];
         for(int[]a:dp){
             Arrays.fill(a,-1);
         }
-        return(LCS(text1,text2,0,0,dp));
+        return check(s1,s2,0,0,dp);
     }
-    public static int LCS(String s1,String s2,int i,int j,int[][]dp){
+    public static int check(String s1,String s2,int i,int j,int[][]dp){
         if(i==s1.length()||j==s2.length()){
             return 0;
         }
@@ -15,13 +15,12 @@ class Solution {
         }
         int ans=0;
         if(s1.charAt(i)==s2.charAt(j)){
-            ans=1+LCS(s1,s2,i+1,j+1,dp);
+            ans=1+check(s1,s2,i+1,j+1,dp);
         }else{
-            int f1=LCS(s1,s2,i+1,j,dp);
-            int f2=LCS(s1,s2,i,j+1,dp);
-            ans=Math.max(f1,f2);
+            int f=check(s1,s2,i+1,j,dp);
+            int s=check(s1,s2,i,j+1,dp);
+            ans=Math.max(f,s);
         }
-        dp[i][j]=ans;
-        return dp[i][j];
+        return dp[i][j]=ans;
     }
 }
